@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>播放音乐</title>
+</head>
+<body>
+    <h1>播放音乐</h1>
+    <input type="text" id="ridInput" placeholder="请输入rid值">
+    <button id="fetchButton">播放音乐</button>
+    <p id="result"></p>
+
+    <!-- 音频播放器 -->
+    <audio id="audioPlayer" controls>
+        您的浏览器不支持音频播放器。
+    </audio>
+
+    <script>
+        // 获取输入框、按钮和显示结果的元素
+        const ridInput = document.getElementById('ridInput');
+        const fetchButton = document.getElementById('fetchButton');
+        const resultElement = document.getElementById('result');
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        // 添加点击事件
+        fetchButton.addEventListener('click', () => {
+            // 获取输入框的值
+            const ridValue = ridInput.value;
+
+            // 使用fetch调用index.php，并传递rid参数
+            fetch(`index.php?rid=${encodeURIComponent(ridValue)}`)
+                .then(response => response.text()) // 将响应转换为文本
+                .then(url => {
+                    // 设置音频播放器的源
+                    audioPlayer.src = url;
+
+                    // 显示成功信息
+                    resultElement.textContent = `正在播放音乐...`;
+                })
+                .catch(error => {
+                    // 处理错误
+                    resultElement.textContent = `发生错误: ${error}`;
+                });
+        });
+    </script>
+</body>
+</html>
