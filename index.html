@@ -6,7 +6,7 @@
     <title>播放音乐</title>
 </head>
 <body>
-    <h1>播放音乐</h1>
+    <h1 id="result">播放音乐</h1>
     <input type="text" id="ridInput" placeholder="请输入rid值">
     <button id="fetchButton">播放音乐</button>
     <p id="result"></p>
@@ -33,7 +33,7 @@
                 .then(response => response.text()) // 将响应转换为文本
                 .then(url => {
                     // 设置音频播放器的源
-                    audioPlayer.src = url;
+                    result.innerhtml=url;
 
                     // 显示成功信息
                     resultElement.textContent = `正在播放音乐...`;
